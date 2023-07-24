@@ -1,0 +1,70 @@
+import {styled} from "styled-components"
+
+export const Table = styled.table`
+    border-collapse: collapse;
+    text-align:center;
+    & tr:nth-child(odd){
+        background-color:#EBEBEB;
+    }
+    & th{
+        background-color:#D9D9D9;
+        padding:2px;
+    }
+    width:100%;
+
+`
+
+export const Container = styled.div`
+    display: flex;
+    width:100%;
+`
+
+export const ContainerData = styled.div`
+    padding: 2em;
+    width:100%;
+`
+
+export const Titulo = styled.h3`
+    font-weight: 600;
+    margin-bottom: 2em;
+`
+export const Input = styled.input`
+    border-radius: 5px;
+    border: 1px solid #7E7B7B;
+    padding: 5px 7px;
+`
+
+export const Form = styled.form`
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    & label {
+        font-size: 14px;
+        color: #4D4A4A;
+    }
+`
+
+export const Div = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const Submit = styled.button`
+    border-radius: 4px;
+    background: #1F92D2;
+    width: 266px;
+    height: 40px;
+    flex-shrink: 0;
+    cursor: pointer;
+    color: #fff;
+    border:0;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    opacity: 0.8;
+    & :hover{
+        opacity: 1;
+    }
+`
