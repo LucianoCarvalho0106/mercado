@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/node": "^20.4.1",
     "ts-node-dev": "^2.0.0"
@@ -19,6 +20,7 @@
     "buffer-from": "^1.1.2",
     "chokidar": "^3.5.3",
     "concat-map": "^0.0.1",
+    "cors": "^2.8.5",
     "create-require": "^1.1.1",
     "diff": "^4.0.2",
     "dotenv": "^16.3.1",

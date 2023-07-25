@@ -5,8 +5,10 @@ import routerProduct from "./routes/produtos";
 import routerVendas from "./routes/vendas";
 import routerEntradasEsaidas from "./routes/entradasEsaidas";
 import routerSaidas from "./routes/saidas";
+import cors from "cors"
 
 const app = express()
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use("/product",routerProduct)

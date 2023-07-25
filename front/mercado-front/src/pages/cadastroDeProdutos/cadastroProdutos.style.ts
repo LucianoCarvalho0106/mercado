@@ -11,6 +11,7 @@ export const Table = styled.table`
         padding:2px;
     }
     width:100%;
+    margin-top:1.4em;
 
 `
 
@@ -36,7 +37,7 @@ export const Input = styled.input`
 
 export const Form = styled.form`
     display: flex;
-    align-items: center;
+    align-items:end;
     flex-wrap: wrap;
     gap: 1rem;
     & label {
@@ -63,8 +64,11 @@ export const Submit = styled.button`
     align-items:center;
     justify-content:center;
     gap:10px;
-    opacity: 0.8;
-    & :hover{
-        opacity: 1;
+`
+
+export const DivBottom = styled.div`
+    margin-top: 2em;
+    & h3{
+        margin-bottom:1em;
     }
 `
