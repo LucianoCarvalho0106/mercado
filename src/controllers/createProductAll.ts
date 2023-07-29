@@ -18,7 +18,7 @@ export const createProduct =  async(req:Request,res:Response)=>{
     
         const products = await product.save()
         res.status(200).json(products)
-    } catch (error) {
+    } catch (error:unknown) {
         res.status(500).json(error)
     }
     

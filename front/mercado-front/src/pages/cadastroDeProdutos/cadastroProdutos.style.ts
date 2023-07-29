@@ -3,12 +3,15 @@ import {styled} from "styled-components"
 export const Table = styled.table`
     border-collapse: collapse;
     text-align:center;
-    & tr:nth-child(odd){
+    & thead tr:nth-child(odd){
         background-color:#EBEBEB;
     }
     & th{
         background-color:#D9D9D9;
         padding:2px;
+    }
+    & td{
+        padding: 6px 0;
     }
     width:100%;
     margin-top:1.4em;
@@ -71,4 +74,15 @@ export const DivBottom = styled.div`
     & h3{
         margin-bottom:1em;
     }
+`
+
+export const ButtonIcon = styled.button`
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+`
+export const DivButtonIcon = styled.div`
+    display: flex;
+    gap:1em;
+    justify-content: center;
 `

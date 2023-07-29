@@ -4,6 +4,7 @@ import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import Home from './pages/Home/Home'
 import { GlobalStyle } from './GlobalStyle'
 import CadastroProdutos from './pages/cadastroDeProdutos/CadastroProdutos'
+import EditarProduto from './pages/editarProduto/EditarProduto'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     path:"/cadastroProdutos",
     element:<CadastroProdutos></CadastroProdutos>
   },
+  {
+    path:"/editarProduto",
+    element:<EditarProduto></EditarProduto>
+  }
 ])
 
 
