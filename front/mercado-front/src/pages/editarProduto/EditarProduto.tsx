@@ -1,24 +1,43 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import SideBar from "../../components/sideBar"
 import { Container, ContainerData,Titulo,Input,Div} from "../cadastroDeProdutos/cadastroProdutos.style"
 import { DivContainerFormEdit,DivButtonsEditar,BtnSalvar,BtnCancelar } from "./EditarProduto.style"
+import axios from "axios"
+import { useNavigate} from "react-router-dom"
 
 
 
 const EditarProduto = () => {
 
-  // const [nomeEditar,setNomeEditar] = useState<string>("")
-  // const [precoEditar,setPrecoEditar] = useState<number|string>(0)
-  // const [precoVendaEditar,setPrecoVendaEditar] = useState<number|string>(0)
-  // const [quantidadeEditar,setQuantidadeEditar] = useState<number|string>(0)
-  const [dataEdit,setDataEdit]=useState<any>({})
+  const data:any = localStorage.getItem("dataEdit")
+    const dataJson =JSON.parse(data)[0]
+    console.log(dataJson)
+    
 
-  useEffect(()=>{
-    const data:any = localStorage.getItem("dataEdit")
-    const dataJson =JSON.parse(data)
-    setDataEdit(dataJson)
-    console.log(dataEdit)
-  },[])
+  const [nomeEditar,setNomeEditar] = useState<string|undefined>(dataJson.nome)
+  const [precoEditar,setPrecoEditar] = useState<number|string>(dataJson.preco)
+  const [precoVendaEditar,setPrecoVendaEditar] = useState<number|string>(dataJson.precoVenda)
+  const [quantidadeEditar,setQuantidadeEditar] = useState<number|string>(dataJson.quantidade)
+  const [codigoEditar]= useState<number|string> (dataJson.codigo)
+
+  const navigate = useNavigate()
+
+  const updateProduct = async()=>{
+    
+    const dataUpdate = {
+      nome:nomeEditar,
+      preco:precoEditar,
+      precoVenda:precoVendaEditar,
+      quantidade:quantidadeEditar,
+      codigo:codigoEditar
+    }
+     await axios.put("https://mercado-black.vercel.app/product/update",dataUpdate)
+     navigate("/cadastroProdutos")
+    
+  }
+  
+
+  
   return (
     <Container>
       <SideBar></SideBar>
@@ -27,27 +46,31 @@ const EditarProduto = () => {
         <DivContainerFormEdit>
         <Div>
             <label htmlFor="nomeProdutoEditar">Nome do Produto</label>
-            <Input placeholder="Nome do Produto" value={dataEdit.nome} onChange={(e)=>setDataEdit(e.target.value)} type="text" id="nomeProdutoEditar"/>
+            <Input placeholder="Nome do Produto" value={nomeEditar} onChange={(e)=>setNomeEditar(e.target.value)} type="text" id="nomeProdutoEditar"/>
           </Div>
 
           <Div>
             <label htmlFor="precoProdutoEditar">Preço</label>
-            <Input value={dataEdit.preco} onChange={(e)=>setDataEdit(e.target.value)} type="number" id="precoProdutoEditar"/>
+            <Input value={precoEditar} onChange={(e)=>setPrecoEditar(e.target.value)} type="number" id="precoProdutoEditar"/>
           </Div>
           
           <Div>
             <label htmlFor="precoDeVendaProdutoEditar">Preço de Venda</label>
-            <Input value={dataEdit.precoVenda} onChange={(e)=>setDataEdit(e.target.value)} type="number"  id="precoDeVendaProdutoEditar"/>
+            <Input value={precoVendaEditar} onChange={(e)=>setPrecoVendaEditar(e.target.value)} type="number"  id="precoDeVendaProdutoEditar"/>
           </Div>
 
           <Div>
             <label htmlFor="quantidadeEditar">Quantidade</label>
-            <Input value={dataEdit.quantidade} onChange={(e)=>setDataEdit(e.target.value)} type="number"  id="quantidadeEditar"/>
+            <Input value={quantidadeEditar} onChange={(e)=>setQuantidadeEditar(e.target.value)} type="number"  id="quantidadeEditar"/>
+          </Div>
+          <Div>
+            <label htmlFor="codigoEditar">Código</label>
+            <Input value={codigoEditar} disabled placeholder="Código do Produto"  type="number"  id="codigoEditar"/>
           </Div>
       </DivContainerFormEdit>
       <DivButtonsEditar>
-            <BtnSalvar>Salvar</BtnSalvar>
-            <BtnCancelar>Cancelar</BtnCancelar>
+            <BtnSalvar onClick={updateProduct}>Salvar</BtnSalvar>
+            <BtnCancelar onClick={()=>navigate("/cadastroProdutos")}>Cancelar</BtnCancelar>
           </DivButtonsEditar>
       </ContainerData>
       

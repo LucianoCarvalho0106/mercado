@@ -4,6 +4,8 @@ import SideBar from "../../components/sideBar"
 import { Table,Container,ContainerData,Titulo,Input,Form,Div,Submit,DivBottom,ButtonIcon,DivButtonIcon } from "./cadastroProdutos.style"
 import {AiOutlineSearch,AiFillEdit,AiFillDelete} from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
+import React from "react"
+
 
 const CadastroProdutos = () => {
 
@@ -17,16 +19,16 @@ const CadastroProdutos = () => {
 
   const navigate = useNavigate()
    
-  const editProduct = async()=>{
+  const editProduct = async(item: { nome: string | number | boolean | ReactPortal | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined; _id: any; preco: any; precoVenda: any; quantidade: number,codigo:number|string })=>{
    
-    const edit = tableBody.map((item: { nome: any; preco: any; precoVenda: any; quantidade: any })=>{
-      return{
+    const edit = [{
         nome:item.nome,
         preco:item.preco,
         precoVenda:item.precoVenda,
         quantidade:item.quantidade,
-      }
-    })
+        codigo:item.codigo
+      }]
+      
     
     localStorage.setItem("dataEdit",JSON.stringify(edit))
     navigate("/editarProduto")
@@ -48,13 +50,21 @@ const CadastroProdutos = () => {
     getProducts()
   }
 
+  const search = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, )=>{
+    e.preventDefault()
+    const dataSearchProduct = tableBody.filter((item: { nome: string })=>item.nome.startsWith(nome2))
+    const concatArray = dataSearchProduct.concat(tableBody)
+    const uniqueArrayItem = [...new Set(concatArray)]
+    console.log(uniqueArrayItem)
+    setTableBody(uniqueArrayItem)
+    setNome2("")
+  }
+
   useEffect( ()=>{
     getProducts()
   },[])
 
- useEffect(()=>{
-  console.log(tableBody)
- },[tableBody])
+
 
   const dataProducts = {
     nome,
@@ -69,6 +79,7 @@ const CadastroProdutos = () => {
     e.preventDefault()
     if(!nome  || !preco || !precoVenda || !quantidade || !codigo){
       alert("Preencha todos os Campos!")
+      return
     }
     try {
      await axios.post("https://mercado-black.vercel.app/product",dataProducts)
@@ -126,7 +137,7 @@ const CadastroProdutos = () => {
                 <label htmlFor="nome2">Nome do Produto</label>
                 <Input value={nome2} onChange={(e)=>setNome2(e.target.value)} id="nome2" type="text" placeholder="Nome do Produto" />
               </Div>
-                <Submit type="submit">Pesquisar <AiOutlineSearch size={25}></AiOutlineSearch></Submit>
+                <Submit onClick={search} type="submit">Pesquisar<AiOutlineSearch size={25}></AiOutlineSearch></Submit>
             </Form>
             <Table>
               <thead>
@@ -142,7 +153,7 @@ const CadastroProdutos = () => {
               <tbody>
                 
                    { tableBody ? (
-                       tableBody.map((item: { nome: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined, _id:any,preco:any,precoVenda:any,quantidade:number })=>{
+                       tableBody.map((item: { nome: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined, _id:any,preco:any,precoVenda:any,quantidade:number,codigo:number|string })=>{
                         return (
                           <tr key={item._id}>
                               <td id={item._id}>{item.nome}</td>
@@ -165,7 +176,7 @@ const CadastroProdutos = () => {
                         <td id={item._id}>{item.quantidade}</td>
                         <td id={item._id}>
                           <DivButtonIcon>
-                            <ButtonIcon onClick={editProduct}><AiFillEdit size={25}></AiFillEdit></ButtonIcon>
+                            <ButtonIcon onClick={()=>editProduct(item)}><AiFillEdit size={25}></AiFillEdit></ButtonIcon>
                             <ButtonIcon onClick={()=>deleteProduct(item._id)}><AiFillDelete size={25}></AiFillDelete></ButtonIcon>
                           </DivButtonIcon>
                         </td>
