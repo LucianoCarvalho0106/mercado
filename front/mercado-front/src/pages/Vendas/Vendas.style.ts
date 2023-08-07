@@ -46,7 +46,7 @@ export const Card = styled.div`
     flex-direction: column;
     padding: 1em;
     box-shadow: 2px 4px 7px 0px rgba(0, 0, 0, 0.25);
-    width: 400px;
+    width: 300px;
     margin-top:2em;
     border-radius: 5px;
 `
@@ -74,4 +74,9 @@ export const CardContent = styled.div`
     padding: 7px;
     border-radius: 5px;
     margin: .6em 0;
+`
+
+export const ContainerCard = styled.div`
+    display: flex;
+    flex-wrap: wrap;
 `

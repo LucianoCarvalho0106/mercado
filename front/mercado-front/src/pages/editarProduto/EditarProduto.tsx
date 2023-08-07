@@ -33,7 +33,6 @@ const EditarProduto = () => {
     }
      await axios.put("https://mercado-black.vercel.app/product/update",dataUpdate)
      navigate("/cadastroProdutos")
-    
   }
   
 
@@ -68,7 +67,7 @@ const EditarProduto = () => {
             <Input value={codigoEditar} disabled placeholder="Código do Produto"  type="number"  id="codigoEditar"/>
           </Div>
       </DivContainerFormEdit>
-      <DivButtonsEditar>
+          <DivButtonsEditar>
             <BtnSalvar onClick={updateProduct}>Salvar</BtnSalvar>
             <BtnCancelar onClick={()=>navigate("/cadastroProdutos")}>Cancelar</BtnCancelar>
           </DivButtonsEditar>

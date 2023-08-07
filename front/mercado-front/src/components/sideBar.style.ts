@@ -5,7 +5,7 @@ export const Container = styled.div`
     width: 33%;
     background-color: #1F92D2;
     color: #fff;
-    height: 100vh;
+    height: auto;
     padding-top:1em;
     transition: width .5s;
     

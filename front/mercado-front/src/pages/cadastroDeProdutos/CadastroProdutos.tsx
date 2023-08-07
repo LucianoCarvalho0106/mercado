@@ -64,8 +64,6 @@ const CadastroProdutos = () => {
     getProducts()
   },[])
 
-
-
   const dataProducts = {
     nome,
     preco,
