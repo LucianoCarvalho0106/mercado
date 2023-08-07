@@ -8,7 +8,15 @@ import routerSaidas from "./routes/saidas";
 import cors from "cors"
 
 const app = express()
-app.use(cors())
+
+const corsOptions = {
+    origin: '*', // Origem permitida
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
+
+app.use(cors(corsOptions))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use("/product",routerProduct)
