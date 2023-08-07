@@ -3,7 +3,7 @@ import { Container,ContainerData,Titulo,Div,Input } from "../cadastroDeProdutos/
 import {HeaderVendas,ContainerButtons,Pesquisar,Limpar,Card,HeaderCard,CardContent,ContainerCard} from "./Vendas.style"
 import {DivContainerFormEdit} from "../editarProduto/EditarProduto.style"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react"
 
 
 interface IData {
@@ -17,35 +17,49 @@ interface IData {
 }
 
 
+
+
 const Vendas = () => {
     const [data,setData] = useState<IData[]>([])
+    const [dataInicial,setDataInicial] = useState<string>("")
+    const [dataFinal,setDataFinal] = useState<string>("")
     
+    const quantidade = data.map(item=>Number(Number(item.quantidade) * item.preco)).reduce((acc,total)=>acc+total,0) 
+
     const getVendas = async()=>{
         try {
             const result = await axios.get("https://mercado-black.vercel.app/vendas")
             setData(result.data)
+            console.log(dataInicial)
         } catch (error) {
             console.log(error)
         }
     }
+    const getDatas = ()=>{
+       const vendas = data.filter(item=>item.data >= dataInicial && item.data <= dataInicial)
+       console.log(vendas)
+    }
 
-    const deleteVenda = async(id:string)=>{
+    async function deleteVenda(_id: string) {
         try {
-            await axios.delete("https://mercado-black.vercel.app/vendas",{
-                data:{
-                    _id:id
+            await axios.delete("https://mercado-black.vercel.app/vendas", {
+                data: {
+                    id: _id
                 }
             })
             getVendas()
         } catch (error) {
             console.log(error)
         }
-        
+
     }
+  
 
     useEffect(()=>{
         getVendas()
     },[])
+
+      
   return (
     <Container>
         <SideBar></SideBar>
@@ -54,20 +68,20 @@ const Vendas = () => {
                 <Titulo>Vendas</Titulo>
                 <ContainerButtons>
                     <button>Vendas: {data.length} </button>
-                    <button>Total: R$ {data.map(item=>item.preco).reduce((acc,current)=>acc+current,0).toFixed(2)} </button>
+                    <button>Total: R$ {quantidade} </button>
                 </ContainerButtons>
             </HeaderVendas>
            
             <DivContainerFormEdit>
                 <Div>
                         <label htmlFor="dataInicial">Data Inicial</label>
-                        <Input id="dataInicial" type="date" />
+                        <Input value={dataInicial} onChange={(e)=>setDataInicial(e.target.value)} id="dataInicial" type="date" />
                 </Div>
                 <Div>
                         <label htmlFor="dataFinal">Data Final</label>
-                        <Input id="dataFinal" type="date" />
+                        <Input value={dataFinal} onChange={(e)=>setDataFinal(e.target.value)} id="dataFinal" type="date" />
                 </Div>
-                <Pesquisar>Pesquisar</Pesquisar>
+                <Pesquisar onClick={getDatas}>Pesquisar</Pesquisar>
                 <Limpar>Limpar</Limpar>
             </DivContainerFormEdit>
 
@@ -88,8 +102,9 @@ const Vendas = () => {
                                 <CardContent>
                                     <p>{item.nomeProduto}</p>
                                     <p>QTD: {item.quantidade}</p>
-                                    <p>Valor: R$ {item.preco}</p>
+                                    <p>Valor: R$ {item.preco.toFixed(2)}</p>
                                 </CardContent>
+                                
                             </Card>
                         )
                     })

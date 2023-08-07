@@ -8,7 +8,7 @@ export const createVenda = async(req:Request,res:Response)=>{
     let dia = String(data.getDate()).padStart(2, '0');
     let mes = String(data.getMonth() + 1).padStart(2, '0');
     let ano = data.getFullYear();
-    let dataAtual = dia + '-' + mes + '-' + ano;
+    let dataAtual = ano + '-' + mes + '-' + dia;
 
     
     

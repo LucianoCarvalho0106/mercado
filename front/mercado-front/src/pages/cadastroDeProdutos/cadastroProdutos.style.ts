@@ -37,6 +37,7 @@ export const Input = styled.input`
     border-radius: 5px;
     border: 1px solid #7E7B7B;
     padding: 5px 7px;
+    text-transform: capitalize;
 `
 
 export const Form = styled.form`
