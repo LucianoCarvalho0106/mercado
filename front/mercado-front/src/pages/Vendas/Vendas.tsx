@@ -8,16 +8,13 @@ import { useEffect, useState} from "react"
 
 interface IData {
     createdAt: string,
-    data:  string,
+    data:  any,
     nomeProduto: string,
     preco: number,
     quantidade: string, 
     _id:string
 
 }
-
-
-
 
 const Vendas = () => {
     const [data,setData] = useState<IData[]>([])
@@ -30,14 +27,14 @@ const Vendas = () => {
         try {
             const result = await axios.get("https://mercado-black.vercel.app/vendas")
             setData(result.data)
-            console.log(dataInicial)
         } catch (error) {
             console.log(error)
         }
     }
-    const getDatas = ()=>{
-       const vendas = data.filter(item=>item.data >= dataInicial && item.data <= dataInicial)
-       console.log(vendas)
+    const getDatas = async()=>{
+        const result = (await axios.get("https://mercado-black.vercel.app/vendas")).data
+       const vendas = result.filter((item: { data: string })=>item.data >= dataInicial && item.data <= dataFinal )
+       setData(vendas)
     }
 
     async function deleteVenda(_id: string) {
@@ -51,9 +48,13 @@ const Vendas = () => {
         } catch (error) {
             console.log(error)
         }
-
     }
   
+    const limpar = ()=>{
+        setData([])
+        setDataInicial("")
+        setDataFinal("")
+    }
 
     useEffect(()=>{
         getVendas()
@@ -68,7 +69,7 @@ const Vendas = () => {
                 <Titulo>Vendas</Titulo>
                 <ContainerButtons>
                     <button>Vendas: {data.length} </button>
-                    <button>Total: R$ {quantidade} </button>
+                    <button>Total: R$ {quantidade.toFixed(2)} </button>
                 </ContainerButtons>
             </HeaderVendas>
            
@@ -82,7 +83,7 @@ const Vendas = () => {
                         <Input value={dataFinal} onChange={(e)=>setDataFinal(e.target.value)} id="dataFinal" type="date" />
                 </Div>
                 <Pesquisar onClick={getDatas}>Pesquisar</Pesquisar>
-                <Limpar>Limpar</Limpar>
+                <Limpar onClick={limpar}>Limpar</Limpar>
             </DivContainerFormEdit>
 
         <ContainerCard>

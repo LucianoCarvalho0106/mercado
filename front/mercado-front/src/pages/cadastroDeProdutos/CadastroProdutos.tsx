@@ -29,7 +29,6 @@ const CadastroProdutos = () => {
         codigo:item.codigo
       }]
       
-    
     localStorage.setItem("dataEdit",JSON.stringify(edit))
     navigate("/editarProduto")
    }
@@ -64,6 +63,8 @@ const CadastroProdutos = () => {
     getProducts()
   },[])
 
+
+
   const dataProducts = {
     nome,
     preco,
@@ -72,6 +73,7 @@ const CadastroProdutos = () => {
     codigo,
     nome2
   }
+
 
   const cadastrar = async(e: { preventDefault: () => void })=>{
     e.preventDefault()
@@ -87,10 +89,10 @@ const CadastroProdutos = () => {
       setQuantidade(0)
       setCodigo("")
       getProducts()
+      localStorage.setItem("dataProduct",JSON.stringify(dataProducts))
     } catch (error) {
       console.log(error)
     }
-
   }
 
 
@@ -180,12 +182,10 @@ const CadastroProdutos = () => {
                         </td>
 
                         
-                          </tr>
-                          
+                          </tr>  
                         )
                       })
                    ):(null)
-                   
                   }
             </tbody>
             </Table>

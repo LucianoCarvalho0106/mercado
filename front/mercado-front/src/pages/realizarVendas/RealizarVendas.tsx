@@ -20,10 +20,14 @@ const RealizarVendas = () => {
     const [nomeProduto,setNomeProduto] = useState<string>("")
     const [dataProduct,setDataProduct] = useState<{nome:string,preco:number,quantidade:number}> ({nome:"",preco:0,quantidade:0})
     const [listProduct,setListProduct] = useState<List[]>([])
-    const [quantidade,setQuantidade] = useState<number>(0)
+    const [quantidade,setQuantidade] = useState<number>(1)
     
 
     const buscarProdutoPeloNome = async()=>{
+        if(!nomeProduto){
+            alert("Digite o nome do Produto!")
+            return
+        }
         const data = await axios.get("https://mercado-black.vercel.app/product/all")
         const dataJson = data.data
         const nome = dataJson.filter((item:{nome:string})=> String(item.nome).startsWith(nomeProduto) )
@@ -40,11 +44,32 @@ const RealizarVendas = () => {
     
     const criarVenda = async()=>{
         try {
+            if(quantidade<=0){
+                alert("Digite uma quantidade válida!")
+                return
+            }
             await axios.post("https://mercado-black.vercel.app/vendas",{
                 nomeProduto:listProduct[0].nome,
                 preco:listProduct[0].preco,
                 quantidade:quantidade
             })
+
+            setListProduct([])
+            setNomeProduto("")
+            setDataProduct({nome:"",preco:0,quantidade:0})
+
+            const dataUpdate:any = localStorage.getItem("dataProduct")
+            const dataUpdateJson = JSON.parse(dataUpdate)
+            const update = {
+                nome: dataUpdateJson.nome,
+                preco: dataUpdateJson.preco,
+                precoVenda: dataUpdateJson.precoVenda,
+                quantidade: Number(dataUpdateJson.quantidade) - Number(quantidade),
+                codigo: dataUpdateJson.codigo
+            }
+
+            localStorage.setItem("dataProduct",JSON.stringify(update))
+            await axios.put("https://mercado-black.vercel.app/product/update",update)
             setListProduct([])
             setNomeProduto("")
             setDataProduct({nome:"",preco:0,quantidade:0})
@@ -52,6 +77,7 @@ const RealizarVendas = () => {
             console.log(error)
         }
     }
+
 
   return (
     <Container>
@@ -101,7 +127,7 @@ const RealizarVendas = () => {
                             listProduct.map(item=>{
                                 return(
                                     <ItemProduct key={item._id}>
-                                        <span>{item.nome}</span>
+                                        <span key={item._id}>{item.nome}</span>
                                         <span>Quantidade: {quantidade}</span>
                                         <span>Valor: R$ {item.preco.toLocaleString("pt-BR", {
                           style: "currency",
@@ -115,12 +141,19 @@ const RealizarVendas = () => {
                         }
                         <Right>
                             <button onClick={()=>{
-                                    if(quantidade<=0){
+                                    if(quantidade<=0 ){
+                                        alert("Digite uma quantidade válida!")
                                         return
                                     }
                                     setQuantidade(quantidade-1)}
                                 }>-</button>
-                            <button onClick={()=>setQuantidade(quantidade+1)}>+</button>
+                            <button onClick={()=>{
+                                if(quantidade > dataProduct.quantidade -1){
+                                    alert(`A quantidade de itens disponíveis é ${dataProduct.quantidade}`)
+                                    return
+                                } 
+                                setQuantidade(quantidade+1)}
+                                }>+</button>
                         </Right>
                         
                     </ProductVenda>

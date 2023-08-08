@@ -21,22 +21,22 @@ function Home() {
             <AiOutlineShoppingCart size={30}></AiOutlineShoppingCart>
           </Button1>
           
-          <Button2>
+          <Button2 onClick={()=>navigate("/realizarVendas")}>
             Realizar Vendas
-            <MdAttachMoney></MdAttachMoney>
+            <MdAttachMoney size={28}></MdAttachMoney>
           </Button2>
             
           
         </ButtonsDiv>
 
         <ButtonsDiv>
-          <Button3>
+          <Button3 onClick={()=>navigate("/entradasESaidas")}>
             Entradas e Saídas
-            <VscGraph></VscGraph>
+            <VscGraph size={28}></VscGraph>
           </Button3>
           <Button4>
             Detalhes de Vendas
-            <CgDetailsMore></CgDetailsMore>
+            <CgDetailsMore size={28}></CgDetailsMore>
           </Button4>
         </ButtonsDiv>
 

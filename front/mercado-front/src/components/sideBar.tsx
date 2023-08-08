@@ -25,7 +25,7 @@ const SideBar = () => {
                     <FaMoneyCheck size={25} color={"#fff"}></FaMoneyCheck>
                     <span>Realizar Vendas</span>
                 </button>
-                <button>
+                <button onClick={()=>navigate("/entradasESaidas")}>
                     <VscGraph size={25} color={"#fff"}></VscGraph>
                     <span>Entradas e saídas</span>
                 </button>

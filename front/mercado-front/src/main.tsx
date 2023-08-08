@@ -8,6 +8,8 @@ import EditarProduto from './pages/editarProduto/EditarProduto'
 import Vendas from './pages/Vendas/Vendas'
 import RealizarVendas from './pages/realizarVendas/RealizarVendas'
 import EntradasESaidas from './pages/entradasESaidas/EntradasESaidas'
+import Entradas from './pages/entradas/Entradas'
+import Saidas from './pages/saidas/Saidas'
 
 const router = createBrowserRouter([
   {
@@ -31,9 +33,18 @@ const router = createBrowserRouter([
     element:<RealizarVendas></RealizarVendas>
   },
   {
-    path:"entradasESaidas",
+    path:"/entradasESaidas",
     element:<EntradasESaidas></EntradasESaidas>
+  },
+  {
+    path:"Entradas",
+    element:<Entradas></Entradas>
+  },
+  {
+    path:"/saidas",
+    element:<Saidas></Saidas>
   }
+  
 ])
 
 
