@@ -10,6 +10,10 @@ import RealizarVendas from './pages/realizarVendas/RealizarVendas'
 import EntradasESaidas from './pages/entradasESaidas/EntradasESaidas'
 import Entradas from './pages/entradas/Entradas'
 import Saidas from './pages/saidas/Saidas'
+import EditarSaida from './pages/editarSaida/EditarSaida'
+import Detalhes from './pages/detalhes/Detalhes'
+
+
 
 const router = createBrowserRouter([
   {
@@ -43,7 +47,15 @@ const router = createBrowserRouter([
   {
     path:"/saidas",
     element:<Saidas></Saidas>
+  },
+  {
+    path:"/editarSaida",
+    element:<EditarSaida></EditarSaida>
+  },{
+    path:"/detalhes",
+    element:<Detalhes></Detalhes>
   }
+ 
   
 ])
 
