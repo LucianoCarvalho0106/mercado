@@ -47,10 +47,14 @@ const Saidas = () => {
   }
 
   const deleteSaida = async(id:string|number)=>{
+    try {
       await axios.delete("https://mercado-black.vercel.app/saidas",{
         data:{id}
       })
       buscarSaidas()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const editSaida = (item:any)=>{
@@ -115,7 +119,7 @@ const Saidas = () => {
                           <td>{item.data}</td>
                           <td>
                             <ButtonIcon onClick={()=>editSaida(item)}><AiFillEdit size={25}></AiFillEdit></ButtonIcon>
-                            <ButtonIcon onClick={()=>deleteSaida(item)}><BsFillTrashFill size={25}></BsFillTrashFill></ButtonIcon>
+                            <ButtonIcon onClick={()=>deleteSaida(item._id)}><BsFillTrashFill size={25}></BsFillTrashFill></ButtonIcon>
                             </td>
                         </tr>
                       )

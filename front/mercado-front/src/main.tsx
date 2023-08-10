@@ -13,6 +13,9 @@ import Saidas from './pages/saidas/Saidas'
 import EditarSaida from './pages/editarSaida/EditarSaida'
 import Detalhes from './pages/detalhes/Detalhes'
 
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const router = createBrowserRouter([
@@ -64,6 +67,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GlobalStyle></GlobalStyle>
-    <RouterProvider router={router}></RouterProvider>
+      <ToastContainer></ToastContainer>
+      <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>,
 )

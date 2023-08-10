@@ -89,6 +89,7 @@ const CadastroProdutos = () => {
       setQuantidade(0)
       setCodigo("")
       getProducts()
+      
       localStorage.setItem("dataProduct",JSON.stringify(dataProducts))
     } catch (error) {
       console.log(error)

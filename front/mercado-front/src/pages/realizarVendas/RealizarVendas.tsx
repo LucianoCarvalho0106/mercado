@@ -1,4 +1,4 @@
-import {useState } from "react"
+import {useEffect, useState } from "react"
 import SideBar from "../../components/sideBar"
 import { Pesquisar } from "../Vendas/Vendas.style"
 import { Container, ContainerData, Input, Table, Titulo } from "../cadastroDeProdutos/cadastroProdutos.style"
@@ -10,17 +10,33 @@ import axios from "axios"
 const RealizarVendas = () => {
 
     interface List {
+        codigo?: string
+        precoVenda?: string
         nome:string
         preco:number,
         quantidade:number,
         _id?:number
     }
     
-
     const [nomeProduto,setNomeProduto] = useState<string>("")
-    const [dataProduct,setDataProduct] = useState<{nome:string,preco:number,quantidade:number}> ({nome:"",preco:0,quantidade:0})
+    const [dataProduct,setDataProduct] = useState<{nome:string,preco:number,quantidade:number,precoVenda?:string,codigo?:string}> ({nome:"",preco:0,quantidade:0})
     const [listProduct,setListProduct] = useState<List[]>([])
     const [quantidade,setQuantidade] = useState<number>(1)
+    const [tableBody,setTableBody] = useState<any>([])
+
+    const getProducts = async()=>{
+        try {
+          const data = await axios.get("https://mercado-black.vercel.app/product/all")
+          setTableBody(data.data)
+          //console.log(data.data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      useEffect(()=>{
+        getProducts()
+      },[])
     
 
     const buscarProdutoPeloNome = async()=>{
@@ -36,6 +52,7 @@ const RealizarVendas = () => {
 
     const adicionar = ()=>{
         setListProduct([dataProduct])
+        console.log(listProduct)
     }
 
     const cancelar = ()=>{
@@ -54,22 +71,19 @@ const RealizarVendas = () => {
                 quantidade:quantidade
             })
 
-            setListProduct([])
-            setNomeProduto("")
-            setDataProduct({nome:"",preco:0,quantidade:0})
-
-            const dataUpdate:any = localStorage.getItem("dataProduct")
-            const dataUpdateJson = JSON.parse(dataUpdate)
+            // mudar essa parte
+            
             const update = {
-                nome: dataUpdateJson.nome,
-                preco: dataUpdateJson.preco,
-                precoVenda: dataUpdateJson.precoVenda,
-                quantidade: Number(dataUpdateJson.quantidade) - Number(quantidade),
-                codigo: dataUpdateJson.codigo
+                nome: listProduct[0].nome,
+                preco: listProduct[0].preco,
+                precoVenda: listProduct[0].precoVenda,
+                quantidade: Number(listProduct[0].quantidade) - Number(quantidade),
+                codigo: listProduct[0].codigo
             }
 
-            localStorage.setItem("dataProduct",JSON.stringify(update))
+            
             await axios.put("https://mercado-black.vercel.app/product/update",update)
+
             setListProduct([])
             setNomeProduto("")
             setDataProduct({nome:"",preco:0,quantidade:0})

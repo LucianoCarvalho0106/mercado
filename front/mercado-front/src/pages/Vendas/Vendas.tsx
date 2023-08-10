@@ -21,7 +21,7 @@ const Vendas = () => {
     const [dataInicial,setDataInicial] = useState<string>("")
     const [dataFinal,setDataFinal] = useState<string>("")
     
-    const quantidade = data.map(item=>Number(Number(item.quantidade) * item.preco)).reduce((acc,total)=>acc+total,0) 
+    const quantidade = data.map(item=>(item.preco)).reduce((acc,total)=>acc+total,0) 
 
     const getVendas = async()=>{
         try {
