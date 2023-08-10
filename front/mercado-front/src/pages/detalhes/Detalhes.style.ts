@@ -29,3 +29,9 @@ export const Vermelho = styled(Verde)`
     border: 2px solid #DB4862;
     color: #DB4862;
 `
+
+export const Liquido = styled(Vermelho)`
+    background-color: #1F92D2;
+    color: #fff;
+    border: 0;
+`

@@ -4,6 +4,7 @@ import { Container, ContainerData,Titulo,Input,Div} from "../cadastroDeProdutos/
 import { DivContainerFormEdit,DivButtonsEditar,BtnSalvar,BtnCancelar } from "./EditarProduto.style"
 import axios from "axios"
 import { useNavigate} from "react-router-dom"
+import { toast } from "react-toastify"
 
 
 
@@ -32,6 +33,7 @@ const EditarProduto = () => {
       codigo:codigoEditar
     }
      await axios.put("https://mercado-black.vercel.app/product/update",dataUpdate)
+     toast.success("Produto atualizado!")
      navigate("/cadastroProdutos")
   }
   

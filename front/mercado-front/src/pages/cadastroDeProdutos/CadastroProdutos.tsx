@@ -5,6 +5,7 @@ import { Table,Container,ContainerData,Titulo,Input,Form,Div,Submit,DivBottom,Bu
 import {AiOutlineSearch,AiFillEdit,AiFillDelete} from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
 import React from "react"
+import {toast} from 'react-toastify';
 
 
 const CadastroProdutos = () => {
@@ -18,6 +19,7 @@ const CadastroProdutos = () => {
   const [tableBody,setTableBody] = useState<any>([])
 
   const navigate = useNavigate()
+  
    
   const editProduct = async(item: { nome: string | number | boolean | ReactPortal | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined; _id: any; preco: any; precoVenda: any; quantidade: number,codigo:number|string })=>{
    
@@ -46,6 +48,7 @@ const CadastroProdutos = () => {
     await axios.delete("https://mercado-black.vercel.app/product",{
       data:{_id:prod}
     })
+    toast.success("Deletado com sucesso!")
     getProducts()
   }
 
@@ -78,7 +81,7 @@ const CadastroProdutos = () => {
   const cadastrar = async(e: { preventDefault: () => void })=>{
     e.preventDefault()
     if(!nome  || !preco || !precoVenda || !quantidade || !codigo){
-      alert("Preencha todos os Campos!")
+      toast.warning("Preencha todos os Campos!")
       return
     }
     try {
@@ -89,8 +92,8 @@ const CadastroProdutos = () => {
       setQuantidade(0)
       setCodigo("")
       getProducts()
-      
       localStorage.setItem("dataProduct",JSON.stringify(dataProducts))
+      toast.success("Produto cadastrado!")
     } catch (error) {
       console.log(error)
     }

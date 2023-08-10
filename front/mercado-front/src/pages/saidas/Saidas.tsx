@@ -8,6 +8,7 @@ import {AiFillEdit} from "react-icons/ai"
 import{BsFillTrashFill} from "react-icons/bs"
 import {ButtonIcon} from "./Saidas.style"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const Saidas = () => {
 
@@ -36,11 +37,16 @@ const Saidas = () => {
 
   const criarSaida = async()=>{
     try {
+      if(descricao == "" || valor == "" || data ==""){
+        toast.warn("Preencha todos os campos!")
+        return
+      }
       await axios.post("https://mercado-black.vercel.app/saidas",saidaObj)
       buscarSaidas()
       setDescricao("")
       setValor("")
       setData("")
+      toast.success("Saida Adicionada!")
     } catch (error) {
       console.log(error)
     }

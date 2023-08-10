@@ -4,6 +4,7 @@ import {HeaderVendas,ContainerButtons,Pesquisar,Limpar,Card,HeaderCard,CardConte
 import {DivContainerFormEdit} from "../editarProduto/EditarProduto.style"
 import axios from "axios"
 import { useEffect, useState} from "react"
+import { toast } from "react-toastify"
 
 
 interface IData {
@@ -44,6 +45,7 @@ const Vendas = () => {
                     id: _id
                 }
             })
+            toast.success("Venda Deletada!")
             getVendas()
         } catch (error) {
             console.log(error)

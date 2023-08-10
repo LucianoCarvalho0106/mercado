@@ -67,7 +67,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GlobalStyle></GlobalStyle>
-      <ToastContainer></ToastContainer>
+      <ToastContainer closeOnClick pauseOnHover autoClose={4000}></ToastContainer>
       <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>,
 )

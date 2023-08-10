@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import SideBar from "../../components/sideBar"
 import { Container, ContainerData, Titulo } from "../cadastroDeProdutos/cadastroProdutos.style"
-import {DivButtons,ButtonELabel,Verde,Vermelho} from "./Detalhes.style"
+import {DivButtons,ButtonELabel,Verde,Vermelho,Liquido} from "./Detalhes.style"
 import axios from "axios"
 
 
@@ -46,7 +46,7 @@ const Detalhes = () => {
                 </ButtonELabel>
                 <ButtonELabel>
                     <label htmlFor="liquido">Liquido</label>
-                    <Verde id="liquido">R$: {Number(entradasReduce - saidas).toFixed(2)}</Verde>
+                    <Liquido id="liquido">R$: {Number(entradasReduce - saidas).toFixed(2)}</Liquido>
                 </ButtonELabel>
             </DivButtons>
         </ContainerData>

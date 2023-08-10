@@ -5,6 +5,7 @@ import { Container, ContainerData, Input, Table, Titulo } from "../cadastroDePro
 import { DivContainerFormEdit } from "../editarProduto/EditarProduto.style"
 import {Flex,DivVendas,ContainerProductVenda,ProductVenda,Buttons,ItemProduct,Right} from "./RealizarVendas.style"
 import axios from "axios"
+import { toast } from "react-toastify"
 
 
 const RealizarVendas = () => {
@@ -40,8 +41,8 @@ const RealizarVendas = () => {
     
 
     const buscarProdutoPeloNome = async()=>{
-        if(!nomeProduto){
-            alert("Digite o nome do Produto!")
+        if(nomeProduto == ""){
+            toast.info("Digite o nome do Produto!")
             return
         }
         const data = await axios.get("https://mercado-black.vercel.app/product/all")
@@ -70,9 +71,7 @@ const RealizarVendas = () => {
                 preco:listProduct[0].preco,
                 quantidade:quantidade
             })
-
-            // mudar essa parte
-            
+ 
             const update = {
                 nome: listProduct[0].nome,
                 preco: listProduct[0].preco,
@@ -87,6 +86,7 @@ const RealizarVendas = () => {
             setListProduct([])
             setNomeProduto("")
             setDataProduct({nome:"",preco:0,quantidade:0})
+            toast.success("Venda Criada!")
         } catch (error) {
             console.log(error)
         }
