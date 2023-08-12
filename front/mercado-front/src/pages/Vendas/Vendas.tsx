@@ -23,13 +23,12 @@ const Vendas = () => {
     const [dataInicial,setDataInicial] = useState<string>("")
     const [dataFinal,setDataFinal] = useState<string>("")
     
-    const quantidade = data.map(item=>(item.preco)).reduce((acc,total)=>acc+total,0) 
+    const quantidade = data.map(item=>(item.precoVenda * Number(item.quantidade))).reduce((acc,total)=>acc+total,0) 
 
     const getVendas = async()=>{
         try {
             const result = await axios.get("https://mercado-black.vercel.app/vendas")
             setData(result.data)
-            console.log(result.data)
         } catch (error) {
             console.log(error)
         }
@@ -107,7 +106,7 @@ const Vendas = () => {
                                 <CardContent>
                                     <p>{item.nomeProduto}</p>
                                     <p>QTD: {item.quantidade}</p>
-                                    <p>Valor: R$ {item.preco.toFixed(2)}</p>
+                                    <p>Valor: R$ {item.precoVenda.toFixed(2)}</p>
                                 </CardContent>
                                 
                             </Card>
