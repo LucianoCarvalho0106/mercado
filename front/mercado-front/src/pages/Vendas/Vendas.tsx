@@ -12,6 +12,7 @@ interface IData {
     data:  any,
     nomeProduto: string,
     preco: number,
+    precoVenda:number,
     quantidade: string, 
     _id:string
 
@@ -28,6 +29,7 @@ const Vendas = () => {
         try {
             const result = await axios.get("https://mercado-black.vercel.app/vendas")
             setData(result.data)
+            console.log(result.data)
         } catch (error) {
             console.log(error)
         }
@@ -95,7 +97,7 @@ const Vendas = () => {
                             <Card key={item._id}>
                                 <HeaderCard>
                                     <p>{item.data}</p>
-                                    <span>Total: R$ {(item.preco * Number(item.quantidade)).toFixed(2)}</span>
+                                    <span>Total: R$ {quantidade.toFixed(2)}</span>
                                 </HeaderCard>
                                 
                                 <div>

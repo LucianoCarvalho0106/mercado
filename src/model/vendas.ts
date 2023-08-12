@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const vendasSchema = new mongoose.Schema({
     nomeProduto:String,
     preco:Number,
+    precoVenda:Number,
     quantidade:{type:String, default:1},
     data:String
 },{

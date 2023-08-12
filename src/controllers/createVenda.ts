@@ -20,12 +20,13 @@ export const createVenda = async(req:Request,res:Response)=>{
         let quantidade = req.body.quantidade ? (req.body.quantidade) : produto?.quantidade!
         let preco = req.body.preco ? (quantidade * req.body.preco) : (quantidade * produto?.preco!)
         
-
+        const {precoVenda} = req.body
 
 
         const venda = new Vendas({
             nomeProduto: produto!.nome,
             preco:preco,
+            precoVenda:precoVenda,
             quantidade:quantidade,
             data:dataAtual
         })

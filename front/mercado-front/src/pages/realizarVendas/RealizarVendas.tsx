@@ -23,7 +23,7 @@ const RealizarVendas = () => {
     const [dataProduct,setDataProduct] = useState<{nome:string,preco:number,quantidade:number,precoVenda?:string,codigo?:string}> ({nome:"",preco:0,quantidade:0})
     const [listProduct,setListProduct] = useState<List[]>([])
     const [quantidade,setQuantidade] = useState<number>(1)
-    const [tableBody,setTableBody] = useState<any>([])
+    const [,setTableBody] = useState<any>([])
 
     const getProducts = async()=>{
         try {
@@ -69,6 +69,7 @@ const RealizarVendas = () => {
             await axios.post("https://mercado-black.vercel.app/vendas",{
                 nomeProduto:listProduct[0].nome,
                 preco:listProduct[0].preco,
+                precoVenda: listProduct[0].precoVenda,
                 quantidade:quantidade
             })
  
