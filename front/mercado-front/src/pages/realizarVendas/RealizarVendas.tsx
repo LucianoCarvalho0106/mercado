@@ -11,16 +11,16 @@ import { toast } from "react-toastify"
 const RealizarVendas = () => {
 
     interface List {
-        codigo?: string
-        precoVenda?: string
-        nome:string
+        codigo?: string,
+        precoVenda?: number,
+        nome:string,
         preco:number,
         quantidade:number,
         _id?:number
     }
     
     const [nomeProduto,setNomeProduto] = useState<string>("")
-    const [dataProduct,setDataProduct] = useState<{nome:string,preco:number,quantidade:number,precoVenda?:string,codigo?:string}> ({nome:"",preco:0,quantidade:0})
+    const [dataProduct,setDataProduct] = useState<{nome:string,preco:number,quantidade:number,precoVenda?:number,codigo?:string}> ({nome:"",preco:0,precoVenda:0,quantidade:0})
     const [listProduct,setListProduct] = useState<List[]>([])
     const [quantidade,setQuantidade] = useState<number>(1)
     const [,setTableBody] = useState<any>([])
@@ -86,7 +86,7 @@ const RealizarVendas = () => {
 
             setListProduct([])
             setNomeProduto("")
-            setDataProduct({nome:"",preco:0,quantidade:0})
+            setDataProduct({nome:"",preco:0,quantidade:0,precoVenda:0})
             toast.success("Venda Criada!")
         } catch (error) {
             console.log(error)
@@ -109,7 +109,7 @@ const RealizarVendas = () => {
                         <thead>
                             <tr>
                                 <td>Nome</td>
-                                <td>Preço</td>
+                                <td>Preço de Venda</td>
                                 <td>Ação</td>
                             </tr>
                         </thead>
@@ -118,7 +118,7 @@ const RealizarVendas = () => {
                             <tr>
                                 <td>{dataProduct.nome}</td>
                                
-                                <td>{dataProduct.preco.toLocaleString("pt-BR", {
+                                <td>{dataProduct.precoVenda!.toLocaleString("pt-BR", {
                                     style: "currency",
                                     currency: "BRL",
                                     minimumFractionDigits: 2,
@@ -144,7 +144,7 @@ const RealizarVendas = () => {
                                     <ItemProduct key={item._id}>
                                         <span key={item._id}>{item.nome}</span>
                                         <span>Quantidade: {quantidade}</span>
-                                        <span>Valor: R$ {item.preco.toLocaleString("pt-BR", {
+                                        <span>Valor: R$ {item.precoVenda!.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
                           minimumFractionDigits: 2,
@@ -172,7 +172,7 @@ const RealizarVendas = () => {
                         </Right>
                         
                     </ProductVenda>
-                    <p>Total: R$ { Number(listProduct[0].preco * quantidade ).toFixed(2)}</p>
+                    <p>Total: R$ { Number(listProduct[0].precoVenda! * quantidade ).toFixed(2)}</p>
                     <Buttons>
                         <button onClick={criarVenda}>Finalizar Venda</button>
                         <button onClick={cancelar}>Cancelar Venda</button>

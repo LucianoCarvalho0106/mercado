@@ -96,7 +96,7 @@ const Vendas = () => {
                             <Card key={item._id}>
                                 <HeaderCard>
                                     <p>{item.data}</p>
-                                    <span>Total: R$ {quantidade.toFixed(2)}</span>
+                                    <span>Total: R$ {Number(Number(item.quantidade) * Number(item.precoVenda)).toFixed(2)}</span>
                                 </HeaderCard>
                                 
                                 <div>

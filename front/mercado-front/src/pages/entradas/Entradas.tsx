@@ -12,6 +12,7 @@ const Entradas = () => {
         data: string,
         nomeProduto: string,
         preco:number,
+        precoVenda:number,
         quantidade:string,
         _id:string
     }
@@ -20,7 +21,7 @@ const Entradas = () => {
     const [dataInicial,SetDataInicial] = useState<string>("")
     const [dataFinal,SetDataFinal] = useState<string>("")
 
-    const varlorReduce = vendas.map(item=>item.preco)
+    const varlorReduce = vendas.map(item=>Number(item.precoVenda) * Number(item.quantidade))
 
     const buscaEntreDatas = async()=>{
         const result = (await axios.get("https://mercado-black.vercel.app/vendas")).data
@@ -49,7 +50,7 @@ const Entradas = () => {
                 <Titulo>Entradas</Titulo>
                 <ContainerButtons>
                     <button>Vendas: {vendas.length}</button>
-                    <button>Total: R$ {vendas.map((item)=>item.preco).reduce((acc,total)=>acc+total,0).toFixed(2)}  </button>
+                    <button>Total: R$ {vendas.map((item)=>Number(item.precoVenda) * Number(item.quantidade)).reduce((acc,total)=>acc+total,0).toFixed(2)}  </button>
                 </ContainerButtons>
             </Header>  
 
