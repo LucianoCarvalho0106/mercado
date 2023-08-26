@@ -20,7 +20,7 @@ const Detalhes = () => {
         setSaidas(data.dataSaidas.totalValorSaidas)
     }
 
-    const entradasReduce = entradas.map((item: { preco: number; quantidade: number })=> item.preco).reduce((acc: any,curr: any)=>acc+curr,0)
+    const entradasReduce = entradas.map((item: { precoVenda: number; quantidade: number })=> item.precoVenda * item.quantidade).reduce((acc: any,curr: any)=>acc+curr,0)
 
 
     useEffect(()=>{
